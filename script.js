@@ -140,6 +140,42 @@ function getResult() {
     isFirstNumber = true;
 };
 
+function useSpecialButton (btn) {
+    switch(btn.getAttribute("id")) {
+        case "clear-btn":
+            output.textContent = "­"
+            firstNumber = "",
+            secondNumber = "",
+            operator = "",
+            isFirstNumber = true;
+            break;
+        case "sign-btn":
+            switch(isFirstNumber) {
+                case true:
+                    firstNumber = String(-(Number(firstNumber)));
+                    output.textContent = firstNumber;
+                    break;
+                case false:
+                    secondNumber = String(-(Number(secondNumber)));
+                    output.textContent = secondNumber;
+                    break;
+            }
+            break;
+        case "percentaje-btn":
+            switch(isFirstNumber) {
+                case true:
+                    firstNumber = String((Number(firstNumber) / 100));
+                    output.textContent = firstNumber;
+                    break;
+                case false:
+                    secondNumber = String((Number(secondNumber) / 100));
+                    output.textContent = secondNumber;
+                    break;
+            }
+            break;
+    }
+};
+
 
 
 // Event listeners
@@ -151,6 +187,9 @@ btnContainer.addEventListener("click", (event) => {
             break;
         case "btn operator-btn":
             getOperator(event.target);
+            break;
+        case "btn special-btn":
+            useSpecialButton(event.target);
             break;
     }
 });
