@@ -2,11 +2,13 @@
 let firstNumber = "";
 let secondNumber = "";
 let operator = "";
+let result = 0;
 let isFirstNumber = true;
-
 
 // DOM nodes
 const btnContainer = document.querySelector("#btn-container");
+const output = document.querySelector("#output");
+
 
 
 // Functions
@@ -48,6 +50,7 @@ function getDigit(btn) {
                     firstNumber += "9";
                     break;
             }
+            output.textContent = firstNumber;
             break;
         case false:
             switch(btn.getAttribute("id")) {
@@ -85,6 +88,7 @@ function getDigit(btn) {
                     secondNumber += "9";
                     break;
             }
+            output.textContent = secondNumber;
             break;
     }
     console.log(firstNumber);
@@ -113,9 +117,34 @@ function getOperator(btn) {
     console.log(operator);
 };
 
+function getResult() {
+    switch(operator) {
+        case "addition":
+        result = (Number(firstNumber)) + (Number(secondNumber));
+        break;
+    case "substraction":
+        result = (Number(firstNumber)) - (Number(secondNumber));
+        break;
+    case "product":
+        result = (Number(firstNumber)) * (Number(secondNumber));
+        break;
+    case "division":
+        result = ((Number(firstNumber)) / (Number(secondNumber))).toFixed(2);
+        break;
+    }
+    console.log(result);
+    output.textContent = result;
+    firstNumber = "";
+    secondNumber = "";
+    result = ""
+    isFirstNumber = true;
+};
+
+
 
 // Event listeners
 btnContainer.addEventListener("click", (event) => {
+    if(event.target.getAttribute("id") == "equal-btn") getResult();
     switch(event.target.getAttribute("class")) {
         case "btn number-btn":
             getDigit(event.target);
